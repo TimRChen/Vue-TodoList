@@ -1,0 +1,22 @@
+{
+  "name": "vue2.0",
+  "version": "1.0.0",
+  "description": "vue-item",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TimRChen/Vue-Start.git"
+  },
+  "author": "timrchen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TimRChen/Vue-Start/issues"
+  },
+  "homepage": "https://github.com/TimRChen/Vue-Start#readme",
+  "dependencies": {
+    "vue": "^2.3.3"
+  }
+}
