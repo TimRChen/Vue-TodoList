@@ -2,6 +2,10 @@
 
 > vue item
 
+## format
+
+*   Eslint控制空格缩进为2个空格
+
 ## Build Setup
 
 ``` bash
