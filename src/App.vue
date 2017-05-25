@@ -1,12 +1,40 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <h1 v-bind:disabled="false">{{ text }}</h1>
+    <form v-on:submit.prevent="onSubmit">
+      <input type="text" v-model="text">
+      <button v-on:click="handleClick">Click me!</button>
+    </form>
+    <div id="example">
+      <p>original Text: "{{ text }}"</p>
+      <p>computed reverse text: "{{ reverseText }}"</p>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  data () {
+    return {
+      text: '123'
+    }
+  },
+  computed: {
+    reverseText: function () {
+      return this.text.split('').reverse().join('')
+    }
+  },
+  methods: {
+    handleClick: function () {
+      this.text = '456'
+      alert(this.text)
+    },
+    onSubmit: function () {
+      alert('onSubmit is run')
+      console.log(`${this.text} by onSubmit`)
+    }
+  }
 }
 </script>
 

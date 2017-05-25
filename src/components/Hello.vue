@@ -1,9 +1,8 @@
 <template>
   <div class="hello">
-    <p>{{ message }}</p>
-    <button v-on:click="reverseMessage">逆转消息</button>
-    <p class="view">{{ value }}</p>
-    <input type="text" v-model="value" />
+    <ol>
+      <todo-item v-for="item in grocerylist" v-bind:todo="item"></todo-item>
+    </ol>
   </div>
 </template>
 
@@ -12,13 +11,11 @@ export default {
   name: 'hello',
   data () {
     return {
-      message: 'Welcome to Your Vue.js App',
-      value: 'default'
-    }
-  },
-  methods: {
-    reverseMessage: function () {
-      this.message = this.message.split('').reverse().join('')
+      grocerylist: [
+        { text: '蔬菜' },
+        { text: '奶酪' },
+        { text: '任意' }
+      ]
     }
   }
 }
