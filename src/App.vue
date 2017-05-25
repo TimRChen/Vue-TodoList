@@ -9,6 +9,11 @@
       <p>original Text: "{{ text }}"</p>
       <p>computed reverse text: "{{ reverseText }}"</p>
     </div>
+    <div id="time">
+      <p>BeiJing Time: "{{ now }}"</p>
+    </div>
+    <div id="name">{{ fullName }}</div>
+    <button @click="changeName">changeName</button>
   </div>
 </template>
 
@@ -17,12 +22,29 @@ export default {
   name: 'app',
   data () {
     return {
-      text: '123'
+      text: '123',
+      firstName: 'Foo',
+      lastName: 'Bar'
     }
   },
   computed: {
+    now: function () {
+      return new Date().toLocaleTimeString()
+    },
     reverseText: function () {
       return this.text.split('').reverse().join('')
+    },
+    fullName: {
+      // getter
+      get: function () {
+        return `${this.firstName}  ${this.lastName}`
+      },
+      // setter
+      set: function (newValue) {
+        let names = newValue.split(' ')
+        this.firstName = names[0]
+        this.lastName = names[names.length - 1]
+      }
     }
   },
   methods: {
@@ -33,6 +55,10 @@ export default {
     onSubmit: function () {
       alert('onSubmit is run')
       console.log(`${this.text} by onSubmit`)
+    },
+    changeName: function () {
+      this.firstName = 'Tim'
+      this.lastName = 'Rchen'
     }
   }
 }
