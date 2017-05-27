@@ -2,22 +2,38 @@
   <div id="app">
     <h2 id="title">Vue-Todos</h2>
     <div class="container">
-      <input 
-        class="inputText" 
+      <input
+        class="inputText"
         placeholder="what's your task?"
         autofocus="true"
         v-model="todoText"
-        v-on:keyup.enter="addTodo(todoText)" />
+        @keyup.enter="addTodo(todoText)" />
       <ul>
         <li v-for="item in items">
-          <input 
-            type="checkbox" 
-            v-on:click="handleClick(item)" />
-          <span 
-            v-bind:class="{ active: item.isChecked }" 
+          <input
+            type="checkbox"
+            :checked="item.isChecked"
+            @click="handleClick(item)" />
+          <span
+            :class="{ active: item.isChecked }" 
             v-text="item.label" />
+          <button
+            class="delete"
+            v-text="'delete'"
+            @click="deleteTodo(item)" />
         </li>
       </ul>
+      <div class="control">
+        <input
+          type="checkbox"
+          v-model="isAllChecked"
+          @click="handleSelectAll" />
+        <span v-text="`${this.items.filter(item => item.isChecked).length || 0} closed / ${this.items.length}`"/>
+        <button
+          class="clear"
+          v-text="'清除已完成'"
+          @click="clearDone" />
+      </div>
     </div>
   </div>
 </template>
@@ -27,7 +43,9 @@ export default {
   name: 'app',
   data () {
     return {
-      items: []
+      items: [],
+      todoText: '',
+      isAllChecked: false
     }
   },
   methods: {
@@ -38,8 +56,38 @@ export default {
       })
       this.todoText = ''
     },
+
     handleClick: function (item) {
       item.isChecked = !item.isChecked
+      // 全选状态时，若某一选项取消，则
+      if (item.isChecked === false) {
+        this.isAllChecked = false
+      }
+    },
+
+    changeTodoState: function (isChecked, isChangeAll = false) {
+      this.isAllChecked = isChecked
+      if (isChangeAll) {
+        this.items.forEach(item => (item.isChecked = isChecked))
+      }
+    },
+
+    handleSelectAll: function (e) {
+      this.changeTodoState(e.target.checked, true)
+    },
+
+    deleteTodo: function (item) {
+      let index = this.items.indexOf(item)
+      this.items.splice(index, 1)
+    },
+
+    clearDone: function () {
+      if (this.isAllChecked) {
+        this.items = []
+        this.isAllChecked = false
+      } else {
+        this.items = this.items.filter(item => !item.isChecked)
+      }
     }
   }
 }
@@ -50,6 +98,7 @@ export default {
   padding: 0;
   margin: 0;
 }
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -86,8 +135,33 @@ li {
   border-bottom: 1px solid #d2d2d2;
 }
 
+.delete {
+  float: right;
+  width: 12%;
+  height: 16px;
+  background: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.delete:hover, .control .clear:hover {
+  background: #FF6A6A;
+  color: #fff;
+}
+
 .active {
   text-decoration: line-through;
 }
+
+.control .clear {
+  float: right;
+  width: 20%;
+  height: 30px;
+  background: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 
 </style>

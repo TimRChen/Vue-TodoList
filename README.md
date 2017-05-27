@@ -1,5 +1,7 @@
 # Vue-Todolist
-Todolist by @TimRChen
+*  this is a Todolist. by @TimRChen
+
+![关注TimRChen](https://raw.githubusercontent.com/TimRChen/photoRepo/master/Vue-Todlist/2017_01.gif)
 
 ## Demand
 *   可以在最上面的input里，使用回车来添加任务
@@ -12,7 +14,10 @@ Todolist by @TimRChen
 
 ## Dev Log
 
-### 0.0.1v
+### 0.0.2 v
+*   完成需求所有功能
+
+### 0.0.1 v
 *   更新vue-todo样式
 *   增加动态添加todo功能
 
