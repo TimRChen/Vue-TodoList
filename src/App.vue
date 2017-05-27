@@ -28,7 +28,7 @@
           type="checkbox"
           v-model="isAllChecked"
           @click="handleSelectAll" />
-        <span v-text="`${this.items.filter(item => item.isChecked).length || 0} closed / ${this.items.length}`"/>
+        <span v-text="stat"/>
         <button
           class="clear"
           v-text="'清除已完成'"
@@ -46,6 +46,12 @@ export default {
       items: [],
       todoText: '',
       isAllChecked: false
+    }
+  },
+  computed: {
+    stat: function () {
+      let closed = this.items.filter(item => item.isChecked).length
+      return `${closed || 0} closed / ${this.items.length}`
     }
   },
   methods: {
