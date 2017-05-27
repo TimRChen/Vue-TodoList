@@ -1,9 +1,23 @@
-# timrchen
+# Vue-Todolist
+Todolist by @TimRChen
 
-> vue item
+## Demand
+*   可以在最上面的input里，使用回车来添加任务
+*   在中间的任务列表里，由checkbox来控制任务的状态
+*   已完成的任务有一个line-through的样式
+*   当鼠标移到每一个任务时，都会出现删除按钮提供删除
+*   在底部有一个全选按钮，用于控制所有的任务状态
+*   还有已完成与总数的显示
+*   可以清空已完成的任务
+
+## Dev Log
+
+### 0.0.1v
+*   更新vue-todo样式
+*   增加动态添加todo功能
+
 
 ## format
-
 *   Eslint控制空格缩进为2个空格
 
 ## Build Setup
@@ -18,10 +32,6 @@ npm run dev || npm start
 # build for production with minification
 npm run build
 ```
-
-## 生命周期图示
-![关注TimRChen](https://raw.githubusercontent.com/TimRChen/photoRepo/master/Vue-Study/lifecycle.png)
-
 
 ## 模板语法
 
@@ -115,3 +125,7 @@ computed: {
 #### 虽然计算属性在大多数情况下更合适，但有时也需要一个自定义的 watcher 。这是为什么 Vue 提供一个更通用的方法通过 watch 选项，来响应数据的变化。当你想要在数据变化响应时，**执行异步操作或开销较大的操作**，这是很有用的。
 
 使用 watch 选项允许我们**执行异步操作（访问一个 API）**，限制我们执行该操作的频率，并在我们得到最终结果前，设置中间状态。这是计算属性无法做到的。
+
+
+## 生命周期图示
+![关注TimRChen](https://raw.githubusercontent.com/TimRChen/photoRepo/master/Vue-Study/lifecycle.png)

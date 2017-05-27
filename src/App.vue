@@ -1,19 +1,24 @@
 <template>
   <div id="app">
-    <h1 v-bind:disabled="false">{{ text }}</h1>
-    <form v-on:submit.prevent="onSubmit">
-      <input type="text" v-model="text">
-      <button v-on:click="handleClick">Click me!</button>
-    </form>
-    <div id="example">
-      <p>original Text: "{{ text }}"</p>
-      <p>computed reverse text: "{{ reverseText }}"</p>
+    <h2 id="title">Vue-Todos</h2>
+    <div class="container">
+      <input 
+        class="inputText" 
+        placeholder="what's your task?"
+        autofocus="true"
+        v-model="todoText"
+        v-on:keyup.enter="addTodo(todoText)" />
+      <ul>
+        <li v-for="item in items">
+          <input 
+            type="checkbox" 
+            v-on:click="handleClick(item)" />
+          <span 
+            v-bind:class="{ active: item.isChecked }" 
+            v-text="item.label" />
+        </li>
+      </ul>
     </div>
-    <div id="time">
-      <p>BeiJing Time: "{{ now }}"</p>
-    </div>
-    <div id="name">{{ fullName }}</div>
-    <button @click="changeName">changeName</button>
   </div>
 </template>
 
@@ -22,55 +27,67 @@ export default {
   name: 'app',
   data () {
     return {
-      text: '123',
-      firstName: 'Foo',
-      lastName: 'Bar'
-    }
-  },
-  computed: {
-    now: function () {
-      return new Date().toLocaleTimeString()
-    },
-    reverseText: function () {
-      return this.text.split('').reverse().join('')
-    },
-    fullName: {
-      // getter
-      get: function () {
-        return `${this.firstName}  ${this.lastName}`
-      },
-      // setter
-      set: function (newValue) {
-        let names = newValue.split(' ')
-        this.firstName = names[0]
-        this.lastName = names[names.length - 1]
-      }
+      items: []
     }
   },
   methods: {
-    handleClick: function () {
-      this.text = '456'
-      alert(this.text)
+    addTodo: function (todoText) {
+      this.items.push({
+        label: todoText,
+        isChecked: false
+      })
+      this.todoText = ''
     },
-    onSubmit: function () {
-      alert('onSubmit is run')
-      console.log(`${this.text} by onSubmit`)
-    },
-    changeName: function () {
-      this.firstName = 'Tim'
-      this.lastName = 'Rchen'
+    handleClick: function (item) {
+      item.isChecked = !item.isChecked
     }
   }
 }
 </script>
 
 <style>
+* {
+  padding: 0;
+  margin: 0;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  max-width: 600px;
+  margin: 60px auto 0 auto;
 }
+
+#title {
+  text-align: center;
+  text-decoration: underline;
+}
+
+.container {
+  margin: 0 100px;
+}
+
+.inputText {
+  width: 100%;
+  height: 30px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  font-size: 20px;
+  margin: 15px auto;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  margin-bottom: 12px;
+  border-bottom: 1px solid #d2d2d2;
+}
+
+.active {
+  text-decoration: line-through;
+}
+
 </style>
