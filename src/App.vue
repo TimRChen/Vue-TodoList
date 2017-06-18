@@ -43,6 +43,7 @@ export default {
   name: 'app',
   data () {
     return {
+      tmpList: this.getTodos('vue-todos'),
       items: [],
       todoText: '',
       isAllChecked: false
@@ -54,17 +55,31 @@ export default {
       return `${closed || 0} closed / ${this.items.length}`
     }
   },
+  created: function () {
+    this.items = this.getTodos('vue-todos') || []
+  },
   methods: {
     addTodo: function (todoText) {
-      this.items.push({
+      this.tmpList.push({
         label: todoText,
         isChecked: false
       })
+      this.refresh_storage('vue-todos', this.tmpList)
+      this.items = this.getTodos('vue-todos')
       this.todoText = ''
+    },
+
+    refresh_storage: function (key, value) {
+      window.localStorage.setItem(key, JSON.stringify(value))
+    },
+
+    getTodos: function (key) {
+      return JSON.parse(window.localStorage.getItem(key))
     },
 
     handleClick: function (item) {
       item.isChecked = !item.isChecked
+      this.refresh_storage('vue-todos', this.items)
       // 全选状态时，若某一选项取消，则
       if (item.isChecked === false) {
         this.isAllChecked = false
@@ -75,6 +90,7 @@ export default {
       this.isAllChecked = isChecked
       if (isChangeAll) {
         this.items.forEach(item => (item.isChecked = isChecked))
+        this.refresh_storage('vue-todos', this.items)
       }
     },
 
@@ -85,14 +101,17 @@ export default {
     deleteTodo: function (item) {
       let index = this.items.indexOf(item)
       this.items.splice(index, 1)
+      this.refresh_storage('vue-todos', this.items)
     },
 
     clearDone: function () {
       if (this.isAllChecked) {
         this.items = []
         this.isAllChecked = false
+        this.refresh_storage('vue-todos', this.items)
       } else {
         this.items = this.items.filter(item => !item.isChecked)
+        this.refresh_storage('vue-todos', this.items)
       }
     }
   }
