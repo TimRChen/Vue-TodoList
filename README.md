@@ -1,6 +1,9 @@
 # Vue-Todolist
 *  this is a Todolist. by @TimRChen
 
+### 0.0.3 v
+*   加入localStorage用于存储列表数据，可点击https://timrchen.github.io/demo-vue-todolist
+
 > 关于用React和Vue分别实现的Todolist，我有话想说: http://www.cnblogs.com/tim100/p/6913186.html
 
 ![关注TimRChen](https://raw.githubusercontent.com/TimRChen/photoRepo/master/Vue-Todlist/2017_01.gif)
