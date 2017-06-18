@@ -43,7 +43,7 @@ export default {
   name: 'app',
   data () {
     return {
-      tmpList: this.getTodos('vue-todos'),
+      tmpList: [],
       items: [],
       todoText: '',
       isAllChecked: false
@@ -56,6 +56,8 @@ export default {
     }
   },
   created: function () {
+    // init list array
+    this.tmpList = this.getTodos('vue-todos') || []
     this.items = this.getTodos('vue-todos') || []
   },
   methods: {
